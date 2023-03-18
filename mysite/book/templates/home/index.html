@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+
+
+{% block body %}
+    
+
+{% for i in book %}
+    <div class="card">
+        <div class="row">
+            <div class="col-3">
+                <img class="card-img-left" src="media/{{ i.Image }}" width="100">
+                
+            </div>
+            <div class="col-4">
+                <div class="card-body">
+                    <h4 class="card-title">{{ i.Name }}</h4>
+                    <p class="card-text">{{ i.Description }}</p>
+                    <p class="card-text">Rating : {{ i.Rating }}/5</p>
+                    <p class="card-text"> {{ i.Category|upper }}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endfor %}
+
+<div class="container mt-5 mb-3 text-center">
+    {% if book.has_previous %}
+        <a name="first" class="btn btn-primary" href="?page=1" role="button"><<</a>
+        <a name="previous" class="btn btn-primary" href="?page={{ book.previous_page_number }}" role="button"><</a>
+    {% endif %}
+
+    Page: {{ book.number }} of {{ book.paginator.num_pages }}
+
+    {% if book.has_next %}
+        <a name="next" class="btn btn-primary" href="?page={{ book.next_page_number }}" role="button">></a>
+        <a name="first" class="btn btn-primary" href="?page={{ book.paginator.num_pages }}" role="button">>></a>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
